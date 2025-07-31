@@ -18,6 +18,16 @@ class CategoryModel
         return $stmt->fetchAll();
     }
     
+    // Đếm số sản phẩm trong một danh mục
+    public function countProductsInCategory($category_id)
+    {
+        $sql = "SELECT COUNT(*) FROM products WHERE category_id = :category_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':category_id', $category_id);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+    
     // Đếm tổng số danh mục
     public function countCategories()
     {

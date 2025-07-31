@@ -12,6 +12,7 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 require_once './controllers/ProductController.php';
 require_once './controllers/UserController.php';
 require_once './controllers/AdminController.php';
+require_once './controllers/CategoryController.php';
 
 // Require toàn bộ file Models
 require_once './models/ProductModel.php';
@@ -39,7 +40,9 @@ match ($act) {
     
     // Trang đăng ký
     'register'=>(new UserController())->Register(),
-    
+     'admin-product'=>(new AdminController())->Products(),
+     'admin-categories'=>(new CategoryController())->Categories(),
+     'categories'=>(new CategoryController())->ViewCategories(),
     // Đăng xuất
     'logout'=>(new UserController())->Logout(),
     
@@ -51,7 +54,7 @@ match ($act) {
         match ($section) {
             'dashboard' => $adminController->Dashboard(),
             'products' => $adminController->Products(),
-            'categories' => $adminController->Categories(),
+            'categories' => (new CategoryController())->Categories(),
             'users' => $adminController->Users(),
             default => $adminController->Dashboard()
         };

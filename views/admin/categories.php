@@ -3,6 +3,23 @@
 require_once './views/admin/layout/header.php';
 ?>
 
+<script>
+    console.log('Categories page loaded');
+    <?php if (isset($categories)): ?>
+    console.log('Categories data:', <?php echo json_encode($categories); ?>);
+    <?php else: ?>
+    console.log('No categories data found');
+    <?php endif; ?>
+    
+    <?php if (isset($error)): ?>
+    console.log('Error:', <?php echo json_encode($error); ?>);
+    <?php endif; ?>
+    
+    <?php if (isset($success)): ?>
+    console.log('Success:', <?php echo json_encode($success); ?>);
+    <?php endif; ?>
+</script>
+
 <div class="container-fluid">
     <!-- Page Title -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -23,7 +40,7 @@ require_once './views/admin/layout/header.php';
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="" method="post" onsubmit="console.log('Form submitted:', {action: '<?php echo isset($_GET["action"]) && $_GET["action"] === "edit" ? "edit" : "add"; ?>', id: '<?php echo isset($category) ? $category["id"] : ""; ?>', name: document.getElementById('category_name').value, description: document.getElementById('description').value});">
                         <?php if (isset($error)): ?>
                             <div class="alert alert-danger"><?php echo $error; ?></div>
                         <?php endif; ?>
@@ -51,7 +68,7 @@ require_once './views/admin/layout/header.php';
                             </button>
                             
                             <?php if (isset($_GET['action']) && $_GET['action'] === 'edit'): ?>
-                                <a href="<?php echo BASE_URL; ?>?act=admin&section=categories" class="btn btn-outline-secondary">Hủy</a>
+                                <a href="<?php echo BASE_URL; ?>?act=admin-categories" class="btn btn-outline-secondary">Hủy</a>
                             <?php endif; ?>
                         </div>
                     </form>
@@ -85,14 +102,14 @@ require_once './views/admin/layout/header.php';
                                             <td><?php echo $cat['name']; ?></td>
                                             <td><?php echo !empty($cat['description']) ? $cat['description'] : 'Không có mô tả'; ?></td>
                                             <td>
-                                                <span class="badge bg-primary">0</span>
+                                                <span class="badge bg-primary"><?php echo $cat['product_count']; ?></span>
                                             </td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <a href="<?php echo BASE_URL; ?>?act=admin&section=categories&action=edit&id=<?php echo $cat['id']; ?>" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Sửa">
+                                                    <a href="<?php echo BASE_URL; ?>?act=admin-categories&action=edit&id=<?php echo $cat['id']; ?>" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Sửa" onclick="console.log('Edit category ID: <?php echo $cat["id"]; ?>')">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="<?php echo BASE_URL; ?>?act=admin&section=categories&action=delete&id=<?php echo $cat['id']; ?>" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?')">
+                                                    <a href="<?php echo BASE_URL; ?>?act=admin-categories&action=delete&id=<?php echo $cat['id']; ?>" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Xóa" onclick="console.log('Delete category ID: <?php echo $cat["id"]; ?>'); return confirm('Bạn có chắc chắn muốn xóa danh mục này?')">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
                                                 </div>
@@ -112,5 +129,24 @@ require_once './views/admin/layout/header.php';
         </div>
     </div>
 </div>
+
+<script>
+    // Thêm event listener cho các nút
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM fully loaded');
+        
+        // Kiểm tra URL hiện tại
+        const currentUrl = window.location.href;
+        console.log('Current URL:', currentUrl);
+        
+        // Thêm event listener cho form submit
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                console.log('Form is being submitted');
+            });
+        }
+    });
+</script>
 
 <?php require_once './views/admin/layout/footer.php'; ?>

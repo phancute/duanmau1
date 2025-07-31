@@ -137,7 +137,7 @@ class ProductModel
     }
     
     // Thêm sản phẩm mới
-    public function addProduct($name, $price, $image, $description, $category_id, $featured = 0)
+    public function addProduct($name, $category_id, $price, $description, $image, $featured = 0)
     {
         $sql = "INSERT INTO products (name, price, image, description, category_id, featured) 
                 VALUES (:name, :price, :image, :description, :category_id, :featured)";
@@ -152,7 +152,7 @@ class ProductModel
     }
     
     // Cập nhật sản phẩm
-    public function updateProduct($id, $name, $price, $image, $description, $category_id, $featured = 0)
+    public function updateProduct($id, $name, $category_id, $price, $description, $image, $featured = 0)
     {
         $sql = "UPDATE products 
                 SET name = :name, 

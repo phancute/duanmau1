@@ -15,7 +15,7 @@ require_once './views/admin/layout/header.php';
     
     <!-- Action Buttons -->
     <div class="mb-4">
-        <a href="<?php echo BASE_URL; ?>?act=admin&section=products&action=add" class="btn btn-primary">
+        <a href="<?php echo BASE_URL; ?>?act=admin-product&action=add" class="btn btn-primary" onclick="console.log('Add new product')">
             <i class="fas fa-plus me-2"></i>Thêm sản phẩm mới
         </a>
     </div>
@@ -76,10 +76,10 @@ require_once './views/admin/layout/header.php';
                                             <a href="<?php echo BASE_URL; ?>?act=product-detail&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="Xem" target="_blank">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="<?php echo BASE_URL; ?>?act=admin&section=products&action=edit&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Sửa">
+                                            <a href="<?php echo BASE_URL; ?>?act=admin-product&action=edit&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Sửa" onclick="console.log('Edit product ID: <?php echo $product["id"]; ?>')">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="<?php echo BASE_URL; ?>?act=admin&section=products&action=delete&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">
+                                            <a href="<?php echo BASE_URL; ?>?act=admin-product&action=delete&id=<?php echo $product['id']; ?>" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Xóa" onclick="console.log('Delete product ID: <?php echo $product["id"]; ?>'); return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
